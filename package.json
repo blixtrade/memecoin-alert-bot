@@ -1,0 +1,13 @@
+{
+  "name": "memecoin-alert-bot",
+  "version": "1.0.0",
+  "description": "pump.fun alert bot for Telegram and Discord: new Solana memecoin launches and bonding-curve graduations, filtered and holder-checked.",
+  "type": "module",
+  "bin": { "alert-bot": "bin/alert-bot.js" },
+  "scripts": { "start": "node bin/alert-bot.js", "test": "node --test" },
+  "engines": { "node": ">=22" },
+  "keywords": ["pump-fun", "telegram-bot", "discord-bot", "memecoin-alerts", "solana", "crypto-alerts", "pumpfun", "token-launches", "graduation", "notifications"],
+  "homepage": "https://blixvip.com/memecoin-alerts",
+  "repository": { "type": "git", "url": "git+https://github.com/blixtrade/memecoin-alert-bot.git" },
+  "license": "MIT"
+}
