@@ -4,6 +4,7 @@ import { c, footer, main, parseArgs, short, sleep } from "../lib/core.js";
 import { connect, makeFilter } from "../lib/feed.js";
 import { createNotifier, formatAlert } from "../lib/notify.js";
 import { createCopyFilter, passesCheck, quickCheck } from "../lib/check.js";
+import { numberFlag } from "../lib/options.js";
 
 const HELP = `memecoin-alert-bot: pump.fun launch and graduation alerts in Telegram and Discord
 
@@ -51,10 +52,10 @@ main(async () => {
   loadEnv();
   const wantLaunches = !args["migrations-only"];
   const wantMigrations = Boolean(args.migrations || args["migrations-only"]);
-  const maxPerMin = Math.max(1, Number(args["max-per-min"]) || 10);
-  const maxTop10 = args["max-top10"] !== undefined ? Number(args["max-top10"]) : null;
+  const maxPerMin = numberFlag(args, "max-per-min", { min: 1 }) ?? 10;
+  const maxTop10 = numberFlag(args, "max-top10") ?? null;
   const filter = makeFilter({
-    minDevBuy: Number(args["min-dev-buy"]) || 0,
+    minDevBuy: numberFlag(args, "min-dev-buy") ?? 0,
     name: typeof args.name === "string" ? args.name : null,
     exclude: typeof args.exclude === "string" ? args.exclude : null,
   });
