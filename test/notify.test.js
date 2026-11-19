@@ -73,5 +73,12 @@ test("copycat launches inside the window are caught, case-insensitively", async 
 test("a ticker that already starts with $ is not doubled", () => {
   assert.match(formatAlert({ ...launch, symbol: "$CUTE" }).discord, /\(\$CUTE\)/);
   assert.doesNotMatch(formatAlert({ ...launch, symbol: "$CUTE" }).discord, /\$\$/);
-  assert.match(formatAlert({ ...launch, symbol: "" }).discord, /Cats & <Dogs>\*\*/);
+  assert.match(formatAlert({ ...launch, symbol: "" }).discord, /Cats & \\<Dogs\\>\*\*/);
+});
+
+test("a hostile token name cannot add Discord links or Telegram tags", () => {
+  const m = formatAlert({ ...launch, name: "Claim [here](https://evil.example) <b>x</b>", symbol: "X" });
+  assert.doesNotMatch(m.discord, /\[here\]\(https/);
+  assert.match(m.discord, /\\\[here\\\]\\\(https/);
+  assert.doesNotMatch(m.telegram, /<b>x<\/b>/);
 });
