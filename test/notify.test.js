@@ -82,3 +82,10 @@ test("a hostile token name cannot add Discord links or Telegram tags", () => {
   assert.match(m.discord, /\\\[here\\\]\\\(https/);
   assert.doesNotMatch(m.telegram, /<b>x<\/b>/);
 });
+
+test("the plain-text version for --dry-run has no Discord escapes or markup", () => {
+  const m = formatAlert({ ...launch, name: "Pepe-The_Frog (v2)", symbol: "PEPE" });
+  assert.equal(m.text, "🚀 New launch: Pepe-The_Frog (v2) ($PEPE)\nDev buy 1.50 SOL · Mcap 30.0 SOL\nMintAAApump");
+  const g = formatAlert({ type: "migration", mint: "M", name: "", symbol: "", check: null });
+  assert.equal(g.text, "🎓 Graduated: M\nM");
+});

@@ -87,7 +87,7 @@ main(async () => {
     recent.push(Date.now());
     const msg = formatAlert(alert);
     if (dryRun) {
-      console.log((alert.type === "migration" ? c.magenta : c.green)(msg.discord.replace(/\*\*/g, "").replace(/\[([^\]]+)\]\(<[^>]+>\)/g, "$1").split("\n").slice(0, 3).join("\n")) + "\n");
+      console.log((alert.type === "migration" ? c.magenta : c.green)(msg.text) + "\n");
     } else {
       notifier.send(msg);
       log(`sent ${alert.type} ${alert.symbol ? "$" + alert.symbol : short(alert.mint)}`);
